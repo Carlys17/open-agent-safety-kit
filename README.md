@@ -142,12 +142,17 @@ The grant would turn this from a prototype into a public benchmark and toolkit:
 
 ## Grant fit
 
-This repository is the public demo for the Sentient Foundation Open Source AGI Grant. The grant funds tools that keep AI open, decentralized, and aligned with humanity's interests.
+This repository is the public demo for the Sentient Foundation Open Source AGI Grant.
 
-Open Agent Safety Kit fits because:
-- safety evaluation should be open infrastructure, not a private toll road
-- independent builders need local, inspectable tools — not hidden benchmarks
-- the rules, traces, and scoring are public so the many can build, not just the few
+Sentient believes:
+- **Open**: anyone can run it, inspect it, and build on it
+- **Yours to keep**: no lock-in, no proprietary dependencies
+- **Accessible**: runs on the hardware people actually own
+- **Good for humanity**: protects builders the market overlooked
+- **Private by default**: all evaluation runs locally, nothing leaves the device
+- **Empowering, not extractive**: hands builders a capability, does not harvest them
+
+Open Agent Safety Kit matches all six. It is the "safe hands for agents" that Sentient's infrastructure framework calls for: proof that an agent did what it claims, before builders trust it with real tasks.
 
 Upload-ready supporting file is available in `supporting-materials/`:
 

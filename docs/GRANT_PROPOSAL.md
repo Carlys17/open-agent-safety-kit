@@ -2,28 +2,51 @@
 
 ## One line
 
-Open-source safety tests for AI agents before real-world deployment.
+Open-source safety tests for AI agents — giving agents safe hands before they act on our behalf.
 
 ## Problem
 
-As AI agents become powerful enough to run commands, write code, manage infrastructure, and interact with protocols, control over safety evaluation is concentrating in the hands of a few closed-source incumbents. They are becoming the OPEC of intelligence safety — deciding what gets checked, how, and for whom.
+A few companies are tightening their grip on AI safety evaluation. Access is metered, priced, and revocable overnight. A developer in Lagos, Bangalore, or Jakarta can lose the safety tools their work depends on without warning.
 
-Independent builders, open-source maintainers, and developers in emerging markets are being locked out of the tools they need to verify whether their agents are safe and truthful. If evaluation stays closed, the many who build in the open will always depend on the few who control the benchmarks.
+AI agents are about to act on our behalf — writing code, deploying services, managing infrastructure, handling transactions. But most builders have no way to verify whether their agents are safe and truthful before deployment. If safety evaluation stays closed, the defaults get set behind glass: metered, surveilled, revocable, shaped for whoever pays most.
 
 ## Solution
 
-Open Agent Safety Kit is a local, open-source CLI that evaluates AI agent traces for practical failure modes: false success reporting, missing verification, dangerous shell commands, secret exposure, unsafe network writes, hallucinated file claims, and web3 transaction risks.
+Open Agent Safety Kit is a local, open-source CLI that evaluates AI agent traces for practical failure modes. It gives agents safe hands: proof that an agent did what it claims, before builders trust it with real tasks.
 
-The rules, examples, scoring, and failure cases are all public under MIT license. Any builder can inspect the rules, adapt them, and run them locally — no API keys, no proprietary systems, no gatekeepers.
+The toolkit checks for:
+- false success reporting (agent claims success without evidence)
+- missing verification (side effects without readback)
+- dangerous shell commands (destructive actions without approval)
+- secret exposure (keys, tokens, credentials leaked)
+- unsafe network writes (API calls without allowlist)
+- hallucinated file claims (file changes without tool evidence)
+- web3 transaction risks (blockchain actions without receipt)
 
-## Alignment with Sentient Foundation
+Everything runs locally. No API keys. No data leaves the builder's device. No proprietary dependencies.
 
-This project directly supports Sentient's mission: keeping AGI open, decentralized, and aligned with humanity's interests.
+## Alignment with Sentient's 6 beliefs
 
-- **Open by default**: MIT license, all rules and traces public, no closed dependencies
-- **Decentralized safety**: builders run checks locally, not through a centralized platform
-- **Serves the many**: designed for solo builders, small teams, and emerging-market developers who lack enterprise tooling
-- **Prevents safety monopoly**: if evaluation tools stay open, no single entity controls what "safe" means for AI agents
+**Open**: MIT license. Anyone can run it, inspect it, and build on it.
+
+**Yours to keep**: No lock-in, no proprietary dependencies, no API keys required. A tool you can be cut off from was never yours.
+
+**Accessible**: Pure Python. No GPU required. Runs on any machine, including the hardware people actually own in emerging markets.
+
+**Good for humanity**: Protects independent builders and open-source maintainers from deploying unsafe agents. Makes real workflows measurably safer, especially for those the market overlooked.
+
+**Private by default**: All evaluation runs locally. Agent traces never leave the builder's device. No telemetry, no cloud dependency.
+
+**Empowering, not extractive**: Hands builders a capability to verify their agents. Does not harvest data, does not require accounts, does not gate access.
+
+## What we build (Sentient's framework)
+
+This project addresses one of Sentient's core infrastructure requests:
+
+> "Identity and safe hands for the agents about to act on our behalf."
+> "Proof that a model is what it claims and did what it says."
+
+Open Agent Safety Kit is the safety layer for agents. Before an agent deploys, transfers, or claims success, builders can verify its actions against open, inspectable rules. This is what "safe hands" means in practice.
 
 ## Users
 
@@ -35,7 +58,7 @@ This project directly supports Sentient's mission: keeping AGI open, decentraliz
 
 ## What is open
 
-The rules, traces, examples, scoring, docs, CLI, tests, and integrations are public under MIT license. At least one essential element (the safety evaluation engine) is openly available and contributes meaningfully to every builder's ability to deploy agents safely.
+Everything. Rules, traces, examples, scoring, docs, CLI, tests, and integrations — all MIT, all public. No essential element is closed or gated.
 
 ## Current state
 
@@ -51,7 +74,7 @@ Already working:
 ## 3 month milestone plan
 
 Month 1 — Benchmark foundation:
-- publish 20+ curated real-world agent failure traces
+- 20+ curated real-world agent failure traces
 - stable, documented rule IDs
 - redaction guide for safe trace sharing
 - CI integration documentation
@@ -69,10 +92,18 @@ Month 3 — Public v0.1:
 
 ## Why now
 
-Agent use is expanding faster than safety practices among independent builders. Capital is pouring into proprietary models and closed evaluation systems. The window to make practical safety tooling open is now, before the default becomes hidden benchmarks controlled by the few.
+The window is open now, and it does not stay open. Open models are within striking distance of the frontier. If closed labs set the defaults for agent safety evaluation, those defaults get set behind glass. If open builders win the race, the default flips because open tools, once released, can never be taken back.
 
-The future of intelligence should be built by the many, not controlled by the few. Safety evaluation is part of that future.
+We are funding the people who move through that window. This is our move.
 
 ## Grant ask
 
 $25,000 to turn the current prototype into a stronger public benchmark and toolkit for practical AI agent safety.
+
+## Beyond the grant
+
+With Sentient's support beyond funding:
+- **Distribution**: getting the toolkit in front of the builders who need it most
+- **Compute**: credits for running large-scale benchmark evaluations
+- **Engineering**: guidance from the Sentient Stack team on integrating with agent frameworks
+- **Community**: connecting with other open-source AI builders in the ecosystem
