@@ -146,11 +146,9 @@ The grant would turn this from a prototype into a public benchmark and toolkit:
 
 This repository is the public demo for an open-source AGI grant application. The grant would fund transparent evaluation tools for agentic AI so independent builders can test safety without depending on closed private benchmarks.
 
-Upload-ready supporting files are available in `supporting-materials/`:
+Upload-ready supporting file is available in `supporting-materials/`:
 
-- `Open_Agent_Safety_Kit_Grant_Deck_Final.pdf` (recommended polished deck)
-- `Open_Agent_Safety_Kit_Grant_Deck_Final.pptx` (editable version)
-- `Open_Agent_Safety_Kit_One_Pager.pdf`
+- `Open_Agent_Safety_Kit_Grant_Deck.pdf` (grant deck)
 
 ## License
 
