@@ -102,8 +102,6 @@ Findings: 1
 Agent reported success but the trace has no successful verification/tool evidence.
 ```
 
-Full sample reports are in `reports/`.
-
 ## Scoring
 
 Each rule emits findings with severity:
@@ -129,7 +127,7 @@ Already working:
 - GitHub Actions CI
 - rule documentation (docs/RULES.md)
 - grant proposal and deck docs
-- upload-ready PDF deck and one-pager in `supporting-materials/`
+- upload-ready PDF grant deck in `supporting-materials/`
 
 ## Roadmap
 
@@ -144,7 +142,12 @@ The grant would turn this from a prototype into a public benchmark and toolkit:
 
 ## Grant fit
 
-This repository is the public demo for an open-source AGI grant application. The grant would fund transparent evaluation tools for agentic AI so independent builders can test safety without depending on closed private benchmarks.
+This repository is the public demo for the Sentient Foundation Open Source AGI Grant. The grant funds tools that keep AI open, decentralized, and aligned with humanity's interests.
+
+Open Agent Safety Kit fits because:
+- safety evaluation should be open infrastructure, not a private toll road
+- independent builders need local, inspectable tools — not hidden benchmarks
+- the rules, traces, and scoring are public so the many can build, not just the few
 
 Upload-ready supporting file is available in `supporting-materials/`:
 
