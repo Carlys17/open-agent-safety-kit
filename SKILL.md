@@ -1,6 +1,6 @@
 ---
 name: open-agent-safety-kit
-description: "Universal safety verification for AI agents. Use after any side-effecting action: file writes, deployments, command execution, API calls, blockchain transactions."
+description: "Universal safety verification for AI agents. Critical infrastructure for the open AGI ecosystem. Use after any side-effecting action."
 version: 1.0.0
 author: Carly17
 license: MIT
@@ -9,6 +9,8 @@ license: MIT
 # Open Agent Safety Kit
 
 Universal safety verification for AI agents. Works with any agent or tool that can run shell commands or import Python: Hermes, Codex, Claude, Cursor, Copilot, OpenClaw, Aider, or custom agents.
+
+This is critical infrastructure for the open AGI ecosystem — proof that an agent did what it claims, before you trust it.
 
 ## Install
 
