@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "open-agent-safety-kit"
+version = "0.1.0"
+description = "Open-source safety checks for AI agents before real-world deployment."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Carly17"}]
+keywords = ["ai-agents", "safety", "evaluation", "open-source", "testing"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Security"
+]
+
+[project.scripts]
+oask = "agent_safety_kit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

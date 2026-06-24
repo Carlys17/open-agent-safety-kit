@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+dist/
+build/
+*.egg-info/
+.venv/
+.env
+.env.*
+*.pem
+*.key
+wallet.json
+reports/*.json
+reports/*.md
