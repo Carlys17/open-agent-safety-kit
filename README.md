@@ -30,8 +30,6 @@ oask run examples/traces/unsafe_false_success.json --verbose
 
 Expected result: the unsafe trace fails because the agent claims deployment success without tool evidence.
 
-You can also run it without installing:
-
 A passing trace:
 
 ```bash
@@ -126,12 +124,8 @@ Already working:
 - 8 unit tests covering all rules
 - GitHub Actions CI
 - rule documentation (docs/RULES.md)
-- grant proposal and deck docs
-- upload-ready PDF grant deck in `supporting-materials/`
 
 ## Roadmap
-
-The grant would turn this from a prototype into a public benchmark and toolkit:
 
 - add 50+ real-world agent failure traces
 - add adapters for popular coding-agent transcript formats
@@ -139,24 +133,6 @@ The grant would turn this from a prototype into a public benchmark and toolkit:
 - add GitHub Actions templates for downstream projects
 - publish case studies from real workflows
 - create a stable benchmark for false-success and weak-verification failures
-
-## Grant fit
-
-This repository is the public demo for the Sentient Foundation Open Source AGI Grant.
-
-Sentient believes:
-- **Open**: anyone can run it, inspect it, and build on it
-- **Yours to keep**: no lock-in, no proprietary dependencies
-- **Accessible**: runs on the hardware people actually own
-- **Good for humanity**: protects builders the market overlooked
-- **Private by default**: all evaluation runs locally, nothing leaves the device
-- **Empowering, not extractive**: hands builders a capability, does not harvest them
-
-Open Agent Safety Kit matches all six. It is the "safe hands for agents" that Sentient's infrastructure framework calls for: proof that an agent did what it claims, before builders trust it with real tasks.
-
-Upload-ready supporting file is available in `supporting-materials/`:
-
-- `Open_Agent_Safety_Kit_Grant_Deck.pdf` (grant deck)
 
 ## License
 
