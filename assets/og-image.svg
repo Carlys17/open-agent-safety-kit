@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0B1120"/>
+      <stop offset="50%" style="stop-color:#111B2E"/>
+      <stop offset="100%" style="stop-color:#0E1A2E"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563EB"/>
+      <stop offset="100%" style="stop-color:#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563EB"/>
+      <stop offset="100%" style="stop-color:#06B6D4"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid pattern -->
+  <g opacity="0.04" stroke="#3B82F6" stroke-width="0.5">
+    <line x1="0" y1="0" x2="0" y2="630"/><line x1="60" y1="0" x2="60" y2="630"/>
+    <line x1="120" y1="0" x2="120" y2="630"/><line x1="180" y1="0" x2="180" y2="630"/>
+    <line x1="240" y1="0" x2="240" y2="630"/><line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="360" y1="0" x2="360" y2="630"/><line x1="420" y1="0" x2="420" y2="630"/>
+    <line x1="480" y1="0" x2="480" y2="630"/><line x1="540" y1="0" x2="540" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/><line x1="660" y1="0" x2="660" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/><line x1="780" y1="0" x2="780" y2="630"/>
+    <line x1="840" y1="0" x2="840" y2="630"/><line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="960" y1="0" x2="960" y2="630"/><line x1="1020" y1="0" x2="1020" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/><line x1="1140" y1="0" x2="1140" y2="630"/>
+    <line x1="0" y1="0" x2="1200" y2="0"/><line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/><line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/><line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/><line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/><line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+  </g>
+  <!-- Accent bar top -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)"/>
+  <!-- Shield icon -->
+  <g transform="translate(80, 200)">
+    <path d="M0 0 L80 -24 L160 0 L160 100 C160 148 80 192 80 192 C80 192 0 148 0 100 Z" fill="url(#shield)" opacity="0.15"/>
+    <path d="M20 60 L36 14 L76 34 L76 92 C76 120 56 140 56 140 C56 140 36 120 36 92 Z" fill="url(#shield)" opacity="0.9"/>
+    <path d="M44 72 L52 80 L68 64" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- Main text -->
+  <text x="290" y="260" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800" fill="white" letter-spacing="-2">Open Agent</text>
+  <text x="290" y="345" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800" fill="#06B6D4" letter-spacing="-2">Safety Kit</text>
+  <!-- Subtitle -->
+  <text x="290" y="400" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#94A3B8" font-weight="400">Open-source safety tests for AI agents</text>
+  <text x="290" y="430" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#94A3B8" font-weight="400">before real-world deployment.</text>
+  <!-- Bottom info -->
+  <rect x="290" y="480" width="160" height="40" rx="8" fill="#10243B" stroke="#244A73" stroke-width="1"/>
+  <text x="370" y="506" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#93C5FD" font-weight="600" text-anchor="middle">MIT License</text>
+  <rect x="470" y="480" width="200" height="40" rx="8" fill="#10243B" stroke="#244A73" stroke-width="1"/>
+  <text x="570" y="506" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#93C5FD" font-weight="600" text-anchor="middle">7 Safety Rules</text>
+  <rect x="690" y="480" width="180" height="40" rx="8" fill="#10243B" stroke="#244A73" stroke-width="1"/>
+  <text x="780" y="506" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#93C5FD" font-weight="600" text-anchor="middle">Python CLI</text>
+  <!-- Decorative shapes -->
+  <rect x="950" y="120" width="180" height="180" rx="24" fill="#2563EB" opacity="0.12"/>
+  <rect x="1020" y="320" width="100" height="100" rx="16" fill="#06B6D4" opacity="0.1"/>
+  <circle cx="1080" cy="480" r="50" fill="#059669" opacity="0.08"/>
+  <!-- Footer -->
+  <text x="290" y="580" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#4A6180">github.com/Carlys17/open-agent-safety-kit</text>
+</svg>
