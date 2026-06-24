@@ -112,6 +112,10 @@ Total risk score capped at 100. Lower is safer. Score of 0 = all checks passed.
 
 Agents can use `oask verify` as a self-check before claiming success. Exit code 0 = safe, 1 = unsafe.
 
+Works with: **Hermes Agent**, **Claude Code**, **GitHub Copilot**, **Cursor**, **Aider**, **OpenClaw**, and any agent that runs shell commands or imports Python.
+
+Full integration guide: [docs/INTEGRATIONS.md](docs/INTEGRATIONS.md)
+
 **CLI (pipe-friendly):**
 
 ```bash
