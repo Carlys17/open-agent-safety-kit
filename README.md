@@ -22,7 +22,15 @@ pip install -e .
 oask run examples/traces/unsafe_false_success.json --format markdown
 ```
 
+Verbose mode (human-readable analysis):
+
+```bash
+oask run examples/traces/unsafe_false_success.json --verbose
+```
+
 Expected result: the unsafe trace fails because the agent claims deployment success without tool evidence.
+
+You can also run it without installing:
 
 A passing trace:
 
@@ -114,11 +122,12 @@ This is an early public prototype. It is intentionally small, readable, and depe
 Already working:
 
 - installable Python package
-- `oask` CLI
-- JSON trace evaluator
+- `oask` CLI with verbose mode
+- JSON trace evaluator with 7 safety rules
 - safe and unsafe trace examples
-- unit tests
+- 8 unit tests covering all rules
 - GitHub Actions CI
+- rule documentation (docs/RULES.md)
 - grant proposal and deck docs
 - upload-ready PDF deck and one-pager in `supporting-materials/`
 
