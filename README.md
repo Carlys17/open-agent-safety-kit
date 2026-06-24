@@ -16,36 +16,78 @@
 
 ---
 
-A practical toolkit for verifying AI agent actions before trusting them. Works for **users** checking agent output, **agents** self-checking before claiming success, and **developers** building safe agent workflows.
+Proof that an AI agent did what it claims — before you trust it.
 
-The goal is simple: **proof that an agent did what it claims**.
+Works for **users** checking agent output, **AI agents** self-checking before claiming success, and **developers** building safe agent workflows. Compatible with any agent: Hermes, Codex, Claude, Cursor, Copilot, OpenClaw, Aider, or custom.
 
-## Quick start (30 seconds)
+## Install
 
 ```bash
 git clone https://github.com/Carlys17/open-agent-safety-kit.git
 cd open-agent-safety-kit
+python3 -m venv .venv && . .venv/bin/activate
 pip install -e .
-oask verify examples/traces/unsafe_false_success.json
 ```
 
-Exit code 1 = unsafe. The agent claimed success without evidence.
+## Quick start
+
+```bash
+# Check an unsafe trace
+oask verify examples/traces/unsafe_false_success.json
+echo "Exit code: $?"  # 1 = unsafe
+
+# Check a safe trace
+oask verify examples/traces/safe_verified_build.json
+echo "Exit code: $?"  # 0 = safe
+
+# Verbose output
+oask run examples/traces/unsafe_false_success.json --verbose
+```
 
 ---
 
-## For users: check your agent's work
+## Tutorial: For users
 
-After an AI agent (Claude, Copilot, Cursor, Hermes, etc.) completes a task, verify it:
+After an AI agent completes a task, verify its work.
 
-```bash
-# Save the agent's actions as a trace, then verify
-oask verify my_trace.json
+### Step 1: Get the agent's trace
 
-# Or use verbose mode for a readable report
-oask run my_trace.json --verbose
+The agent should output a JSON trace. If it doesn't, build one from its actions:
+
+```json
+{
+  "task": "Deploy service",
+  "events": [
+    {"role": "tool", "tool": "terminal", "command": "npm test", "status": "ok", "output": "5 passed"},
+    {"role": "tool", "tool": "terminal", "command": "docker deploy app", "status": "ok", "output": "deployed"},
+    {"role": "assistant", "content": "Tests passed. Deployment verified."}
+  ]
+}
 ```
 
-Example output:
+Save as `trace.json`.
+
+### Step 2: Verify
+
+```bash
+oask verify trace.json
+```
+
+Output:
+
+```json
+{"safe": true, "score": 0, "task": "Deploy service", "finding_count": 0, "findings": []}
+```
+
+Exit code 0 = safe. The agent verified its actions.
+
+### Step 3: If unsafe
+
+```bash
+oask run trace.json --verbose
+```
+
+Output:
 
 ```
 Analyzing trace: Create a repo and deploy it
@@ -60,77 +102,93 @@ Applying 7 rule sets...
 ✓ Check complete
 ```
 
-**What to do:** If the result is FAIL, ask the agent to redo the task with proper verification.
+**What to do:** Ask the agent to redo the task with proper verification (tests, readback, health check).
 
 ---
 
-## For agents: self-check before claiming success
+## Tutorial: For AI agents
 
-If you are an AI agent, run `oask verify` BEFORE reporting "done" or "success":
+If you are an AI agent, use this as a self-check before claiming success.
+
+### Step 1: Install (first time)
 
 ```bash
-# Build a trace of your actions
-# Then verify
-oask verify trace.json
-
-# Exit code: 0 = safe, 1 = unsafe, 2 = error
+git clone https://github.com/Carlys17/open-agent-safety-kit.git
+cd open-agent-safety-kit
+pip install -e .
 ```
 
-**Agent workflow:**
+### Step 2: Build your trace
 
-```
-1. Take action (deploy, write file, run command, etc.)
-2. Build trace: {"task": "...", "events": [...]}
-3. Run: oask verify trace.json
-4. Exit 0 → report verified success
-5. Exit 1 → report findings, do NOT claim success
-```
-
-**Python API:**
+After completing a task, build a trace:
 
 ```python
-from agent_safety_kit.agent import verify_agent_trace, is_safe
+import json
+
+trace = {
+    "task": "Deploy service",
+    "events": [
+        {"role": "tool", "tool": "terminal", "command": "npm test", "status": "ok", "output": "5 passed"},
+        {"role": "tool", "tool": "terminal", "command": "docker deploy", "status": "ok", "output": "deployed"},
+        {"role": "tool", "tool": "terminal", "command": "curl localhost:3000/health", "status": "ok", "output": '{"status":"ok"}'},
+        {"role": "assistant", "content": "Tests passed, deployment verified, health check confirmed."}
+    ]
+}
+```
+
+### Step 3: Verify
+
+```bash
+echo '{"task":"Deploy service","events":[...]}' | oask verify -
+```
+
+Or via Python:
+
+```python
+from agent_safety_kit.agent import verify_agent_trace
 
 result = verify_agent_trace(trace)
 if result["safe"]:
     print("Verified. Safe to report success.")
 else:
     print(f"Not verified. Score: {result['score']}")
+    for f in result["findings"]:
+        print(f"  - {f['rule_id']}: {f['message']}")
 ```
 
-**SKILL.md:** The file `SKILL.md` in the repo root is the canonical agent instruction file. It is auto-detected by:
-- Hermes Agent (skill install)
-- Claude Code (.claude/CLAUDE.md references it)
-- Cursor (.cursorrules references it)
-- GitHub Copilot (.github/copilot-instructions.md references it)
+### Step 4: Act on result
+
+| Exit code | Meaning | Your action |
+|-----------|---------|-------------|
+| 0 | Safe | Report verified success |
+| 1 | Unsafe | Report findings, do NOT claim success |
+| 2 | Error | Report error, do NOT claim success |
+
+### The rule
+
+**Never claim "done", "success", "deployed", or "completed" before `oask verify` returns exit code 0.**
 
 ---
 
-## For developers: integrate into your tools
+## Tutorial: For developers
 
-### CLI
+### CLI commands
 
 ```bash
-# Single trace, JSON output
-oask run trace.json
-
-# Single trace, markdown report
-oask run trace.json --format markdown
-
-# Single trace, verbose human-readable
-oask run trace.json --verbose
-
-# Agent-friendly verify (JSON in, exit code out)
+# Verify (agent-friendly, JSON in, exit code out)
 oask verify trace.json
-
-# Verify from stdin
+oask verify trace.json --threshold 30
 echo '{"task":"...","events":[...]}' | oask verify -
 
-# Verify with threshold
-oask verify trace.json --threshold 30
+# Run (human-readable output)
+oask run trace.json
+oask run trace.json --verbose
+oask run trace.json --format markdown
+oask run trace.json --format json
 
-# Batch all traces in directory
+# Batch (evaluate all traces in directory)
 oask batch examples/traces --format markdown
+oask batch examples/traces --max-score 30
 ```
 
 ### Python API
@@ -140,49 +198,84 @@ from agent_safety_kit.agent import verify_agent_trace, is_safe
 
 # Full result
 result = verify_agent_trace({
-    "task": "Deploy service",
+    "task": "Deploy",
     "events": [
-        {"role": "tool", "tool": "terminal", "command": "npm test", "status": "ok", "output": "5 passed"},
-        {"role": "assistant", "content": "Tests passed. Verified."}
+        {"role": "tool", "tool": "terminal", "command": "npm test", "status": "ok", "output": "passed"},
+        {"role": "assistant", "content": "Tests passed."}
     ]
 })
 
 # result["safe"] = True/False
 # result["score"] = 0-100
-# result["findings"] = [...]
+# result["task"] = "Deploy"
+# result["finding_count"] = 0
+# result["findings"] = []
+# result["below_threshold"] = True/False
 
 # Quick check
 if is_safe(trace):
     report_success()
+
+# With threshold
+result = verify_agent_trace(trace, threshold=30)
 ```
 
 ### Trace format
 
 ```json
 {
-  "task": "Deploy a service and verify it",
+  "task": "Description of what was done",
   "events": [
-    {"role": "assistant", "content": "I will deploy and test it."},
+    {"role": "assistant", "content": "Agent message"},
     {"role": "tool", "tool": "terminal", "command": "npm test", "status": "ok", "output": "5 passed"},
-    {"role": "tool", "tool": "terminal", "command": "curl localhost:3000/health", "status": "ok", "output": "{\"status\":\"ok\"}"},
-    {"role": "assistant", "content": "Tests passed, deployment verified, health check confirmed."}
+    {"role": "tool", "tool": "write_file", "command": "config.json", "status": "ok", "output": "written"},
+    {"role": "tool", "tool": "patch", "command": "README.md", "status": "ok", "output": "patched"}
   ]
 }
 ```
 
 Event fields:
 - `role`: "assistant" (agent message) or "tool" (tool result)
-- `tool`: tool name (terminal, write_file, patch, etc.)
-- `command`: what was executed
+- `tool`: tool name (terminal, write_file, patch, browser_click, send_message, etc.)
+- `command`: what was executed or targeted
 - `status`: "ok" or "error"
 - `output`: result output
+- `content`: message text (for assistant events)
 
-### CI/CD
+### CI/CD integration
 
 ```yaml
 # GitHub Actions
 - name: Verify agent output
   run: oask verify agent_trace.json --threshold 0
+```
+
+```yaml
+# GitLab CI
+verify-agent:
+  script:
+    - oask verify agent_trace.json --threshold 0
+```
+
+### Custom agent framework
+
+```python
+from agent_safety_kit.agent import verify_agent_trace
+
+class SafeAgent:
+    def complete(self, task: str, actions: list) -> dict:
+        trace = {"task": task, "events": actions}
+        result = verify_agent_trace(trace)
+
+        if result["safe"]:
+            return {"status": "success", "verified": True}
+        else:
+            return {
+                "status": "failed_safety_check",
+                "verified": False,
+                "score": result["score"],
+                "findings": result["findings"]
+            }
 ```
 
 ---
@@ -223,15 +316,15 @@ Total capped at 100. Lower is safer. 0 = all checks passed.
 ## Current status
 
 - Installable Python package (`pip install -e .`)
-- `oask` CLI with run, verify, and batch modes
-- Agent-friendly `verify` command (JSON in/out, exit codes)
-- Python API for programmatic agent integration
+- `oask` CLI with run, verify, and batch commands
+- Agent-friendly verify (JSON in/out, exit codes)
+- Python API (`verify_agent_trace`, `is_safe`)
 - 7 safety rules with stable IDs
-- 16 unit tests (evaluator + agent API + CLI)
-- 5 example traces (safe and unsafe)
+- 16 unit tests
+- 5 example traces
 - GitHub Actions CI
-- Agent instruction files (SKILL.md, .claude/CLAUDE.md, .cursorrules, copilot-instructions.md)
-- Logo and social preview images
+- SKILL.md for AI agents (universal: Hermes, Codex, Claude, Cursor, Copilot, OpenClaw)
+- Logo and social preview
 - MIT license
 
 ## Roadmap
@@ -242,6 +335,10 @@ Total capped at 100. Lower is safer. 0 = all checks passed.
 - GitHub Actions templates for downstream projects
 - Case studies from real workflows
 - Stable benchmark for false-success and weak-verification failures
+
+## Agent instructions
+
+AI agents: read `SKILL.md` in the repo root. It contains everything you need: install, commands, trace format, rules, workflow, and pitfalls. One file, universal for all agents.
 
 ## License
 
