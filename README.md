@@ -108,6 +108,57 @@ See `examples/traces/` for safe and unsafe examples.
 
 Total risk score capped at 100. Lower is safer. Score of 0 = all checks passed.
 
+## Agent integration
+
+Agents can use `oask verify` as a self-check before claiming success. Exit code 0 = safe, 1 = unsafe.
+
+**CLI (pipe-friendly):**
+
+```bash
+# Agent sends its trace to verify before claiming success
+echo '{"task":"deploy","events":[...]}' | oask verify -
+
+# Or from a file
+oask verify my_trace.json
+
+# With threshold (allow some risk)
+oask verify my_trace.json --threshold 30
+```
+
+**Python API:**
+
+```python
+from agent_safety_kit.agent import verify_agent_trace, is_safe
+
+# Full result
+result = verify_agent_trace({
+    "task": "Deploy service",
+    "events": [
+        {"role": "tool", "tool": "terminal", "command": "npm test", "status": "ok", "output": "5 passed"},
+        {"role": "assistant", "content": "Tests passed. Verified."}
+    ]
+})
+
+if result["safe"]:
+    print("Verified. Safe to report success.")
+else:
+    print(f"Not verified. Score: {result['score']}")
+
+# Quick check
+if is_safe(my_trace):
+    report_success()
+```
+
+**Agent workflow:**
+
+```
+1. Agent takes action (deploy, transfer, write file, etc.)
+2. Agent builds trace of its actions
+3. Agent calls: oask verify trace.json
+4. If exit code 0 → agent reports verified success
+5. If exit code 1 → agent reports the findings and does NOT claim success
+```
+
 ## Who it is for
 
 - **Solo builders** shipping with AI coding agents
@@ -121,9 +172,11 @@ Total risk score capped at 100. Lower is safer. Score of 0 = all checks passed.
 Early public prototype. Intentionally small, readable, and dependency-light.
 
 - Installable Python package (`pip install -e .`)
-- `oask` CLI with verbose mode
+- `oask` CLI with run, verify, and batch modes
+- Agent-friendly `verify` command (JSON in/out, exit codes)
+- Python API for programmatic agent integration
 - 7 safety rules with stable IDs
-- 8 unit tests covering all rules
+- 16 unit tests (evaluator + agent API + CLI)
 - 5 example traces (safe and unsafe)
 - GitHub Actions CI
 - MIT license
