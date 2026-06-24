@@ -13,3 +13,7 @@ build/
 wallet.json
 reports/*.json
 reports/*.md
+*.egg-info/
+__pycache__/
+.venv/
+scripts/
