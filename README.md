@@ -139,8 +139,9 @@ This repository is the public demo for an open-source AGI grant application. The
 
 Upload-ready supporting files are available in `supporting-materials/`:
 
-- `Open_Agent_Safety_Kit_Grant_Deck_Elegant.pdf` (recommended polished deck)
-- `Open_Agent_Safety_Kit_Grant_Deck.pdf` (simple backup deck)
+- `Open_Agent_Safety_Kit_Grant_Deck_Final.pdf` (recommended polished deck)
+- `Open_Agent_Safety_Kit_Grant_Deck_Elegant.pdf` (backup)
+- `Open_Agent_Safety_Kit_Grant_Deck.pdf` (simple backup)
 - `Open_Agent_Safety_Kit_One_Pager.pdf`
 
 ## License
